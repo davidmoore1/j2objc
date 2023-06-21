@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: java_11_make
-        run: echo "JAVA_11_HOME=$(/usr/libexec/java_home -v 1.11)" >> $GITHUB_ENV
+        run: echo "JAVA_11_HOME=$(/usr/libexec/java_home -v 11)" >> $GITHUB_ENV
 
       - uses: actions/checkout@v2
 

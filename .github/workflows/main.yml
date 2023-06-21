@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ dmcurrent ]
   pull_request:
-    branches: [ master ]
+    branches: [ dmcurrent ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -17,19 +17,19 @@ jobs:
       MAKE_CMD: "env TRANSLATE_GLOBAL_FLAGS=--swift-friendly ENV_J2OBJC_ARCHS=macosx_iphone64 make -j32"
 
     steps:
-      - name: java_8_env
-        run: echo "JAVA_8_HOME=$(/usr/libexec/java_home -v 1.8)" >> $GITHUB_ENV
+      - name: java_11_make
+        run: echo "JAVA_11_HOME=$(/usr/libexec/java_home -v 1.11)" >> $GITHUB_ENV
 
       - uses: actions/checkout@v2
 
       # Build everything but protobuf targets, which require that the public
       # protobuf distribution be installed.
       - name: build_all
-        run: $MAKE_CMD JAVA_HOME=$JAVA_8_HOME frameworks examples_dist
+        run: $MAKE_CMD JAVA_HOME=$JAVA_11_HOME frameworks examples_dist
       
       # Test command-line tools.
       - name: test_tools
-        run: $MAKE_CMD JAVA_HOME=$JAVA_8_HOME test_translator test_cycle_finder test_jre_cycles
+        run: $MAKE_CMD JAVA_HOME=$JAVA_11_HOME test_translator test_cycle_finder test_jre_cycles
         
       - name: java_11_env
         run: echo "JAVA_11_HOME=$(/usr/libexec/java_home -v 11)" >> $GITHUB_ENV

@@ -40,4 +40,20 @@ jobs:
       # Double-check translator tests for Java 11, since its javac is different.
       - name: test_translator_java_11
         run: $MAKE_CMD JAVA_HOME=$JAVA_11_HOME test_translator
-         
+        
+      # rename distribution folder
+      - name: Rename dist 
+        run: mv dist j2objc-2.8a
+
+      # Zip distribution directory
+      - name: zip_distribution
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r j2objc-2.8a.zip j2objc-2.8a
+      
+      # Save zip file
+      - name: save_dist
+        uses: actions/upload-artifact@v2
+        with:
+          name: j2objc-2.8a.zip
+

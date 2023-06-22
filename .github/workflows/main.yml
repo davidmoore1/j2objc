@@ -45,15 +45,14 @@ jobs:
       - name: Rename dist 
         run: mv dist j2objc-2.8a
 
-      # Zip distribution directory
-      - name: zip_distribution
-        uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r j2objc-2.8a.zip j2objc-2.8a
+      # Compress distribution directory
+      - name: compress distribution
+        run: tar -czvf j2objc-2.8a.tar.gz j2objc-2.8a
       
-      # Save zip file
+      # Save distribution
       - name: save_dist
         uses: actions/upload-artifact@v2
         with:
-          name: j2objc-2.8a.zip
+          name: j2objc-2.8a.tar.gz
+          path: j2objc-2.8a.tar.gz
 
